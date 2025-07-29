@@ -30,7 +30,7 @@ export const API_ENDPOINTS = {
     GET_MY_CLUBS: '/api/users/me/groups', // GET
     GET_NOTIFICATIONS: '/api/users/me/notifications', // GET
     UPDATE_NOTIFICATIONS: '/api/users/me/notifications', // PUT
-    GET_UPCOMING_EVENTS: '/api/users/me/events', // GET (Corregido de '/api/user/me/events')
+    GET_UPCOMING_EVENTS: '/api/user/me/events', // GET (Corregido de '/api/user/me/events')
     JOIN_ACTIVITY: (activityId: number | string) => `/api/users/me/activity/${activityId}`, // POST (Corregido de '/api/user/me/...')
     LEAVE_ACTIVITY: (activityId: number | string) => `/api/users/me/activity/${activityId}`, // PUT (Corregido de '/api/user/me/...')
   },
