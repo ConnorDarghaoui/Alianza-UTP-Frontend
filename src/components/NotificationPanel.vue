@@ -17,12 +17,7 @@ const readNotificationIds = ref<number[]>([]);
 
 // Obtener notificaciones del usuario autenticado
 const notifications = computed((): Notification[] => {
-  // Primero intentamos obtener notificaciones del userStore
-  if (userStore.notifications && userStore.notifications.length > 0) {
-    return userStore.notifications;
-  }
-  // Fallback a las notificaciones en authStore
-  return authStore.user?.notifications || [];
+  return userStore.notifications;
 });
 
 function handleClickNotification(notif: Notification) {
@@ -61,7 +56,7 @@ defineExpose({ rootElement });
       </div>
       <div v-else v-for="notif in notifications" :key="notif.id" @click="handleClickNotification(notif)" class="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 transition-colors cursor-pointer" :class="{ 'bg-blue-50': !readNotificationIds.includes(notif.id) }">
         <p class="font-medium text-darkText">{{ notif.message || 'Notificación sin texto' }}</p>
-        <p class="text-xs text-gray-500 mt-1">{{ new Date(notif.created_at).toLocaleDateString() }}</p>
+        <p class="text-xs text-gray-500 mt-1">{{ new Date(notif.createdAt).toLocaleDateString() }}</p>
       </div>
     </div>
     <div class="p-2 border-t border-gray-200 text-center">

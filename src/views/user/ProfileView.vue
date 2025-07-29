@@ -6,7 +6,7 @@
       <div class="flex items-center space-x-6 mb-6">
         <div class="relative">
           <img 
-            :src="authStore.user?.profile_image_url || defaultAvatar" 
+            :src="authStore.user?.profile_photo_url || defaultAvatar" 
             alt="Foto de perfil" 
             class="w-24 h-24 rounded-full object-cover"
           />
@@ -22,7 +22,7 @@
           </button>
         </div>
         <div>
-          <h2 class="text-xl font-semibold">{{ authStore.user?.firstName }} {{ authStore.user?.lastName }}</h2>
+          <h2 class="text-xl font-semibold">{{ authStore.user?.name }} {{ authStore.user?.last_name }}</h2>
           <p class="text-gray-500">@{{ authStore.user?.username }}</p>
         </div>
       </div>

@@ -25,7 +25,7 @@ export const useClubStore = defineStore('club', {
     isSelectedClubAdmin: (state) => {
       const authStore = useAuthStore();
       // Assuming selectedClub.details has an adminId property
-      return state.selectedClub && authStore.user && state.selectedClub.details.adminId === authStore.user.id;
+      return state.selectedClub && authStore.user && state.selectedClub.details.adminId === authStore.user.userId;
     },
   },
 

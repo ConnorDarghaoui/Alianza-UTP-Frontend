@@ -3,13 +3,23 @@ import { authDAO } from '@/services/dao/auth.dao';
 import type { UserProfile } from '@/services/dao/models/auth.model';
 
 export const useAuthStore = defineStore('auth', {
-  state: () => ({
-    user: null as UserProfile | null,
-    token: localStorage.getItem('authToken') || null,
-    isAuthenticated: !!localStorage.getItem('authToken'),
-    isLoading: false,
-    error: null as string | null,
-  }),
+  state: () => {
+    let storedToken = localStorage.getItem('authToken');
+    // Ensure the stored token is actually a string and not "[object Object]"
+    if (storedToken === '[object Object]') {
+      console.warn('Invalid token found in localStorage, clearing it.');
+      localStorage.removeItem('authToken');
+      storedToken = null;
+    }
+
+    return {
+      user: null as UserProfile | null,
+      token: storedToken,
+      isAuthenticated: !!storedToken,
+      isLoading: false,
+      error: null as string | null,
+    };
+  },
 
   getters: {
     isLoggedIn: (state) => state.isAuthenticated,
@@ -112,7 +122,7 @@ export const useAuthStore = defineStore('auth', {
       this.isLoading = true;
       this.error = null;
       try {
-        const [data, error] = await authDAO.verifyResetCode(code);
+        const [data, error] = await authDAO.verifyResetCode({ verificationCode: code });
         if (data) {
           return data;
         } else {
@@ -131,7 +141,7 @@ export const useAuthStore = defineStore('auth', {
       this.isLoading = true;
       this.error = null;
       try {
-        const [data, error] = await authDAO.submitNewPassword(password);
+        const [data, error] = await authDAO.submitNewPassword({ newPassword: password });
         if (data) {
           return data;
         } else {

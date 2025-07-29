@@ -1,10 +1,11 @@
-import apiClient from '@/services/api/client';
+import apiClient, { refreshClient } from '@/services/api/client';
 import { API_ENDPOINTS } from '@/constants/api';
+import type { AuthLoginRequestDTO, UserEnrollDTO, SubmitPasswordResetRequestDTO, VerifyCodeRequestDTO } from './models/auth.model';
 
 type ApiResponse<T> = [T | null, string | null];
 
 export const authDAO = {
-  async login(credentials: any): Promise<ApiResponse<any>> {
+  async login(credentials: AuthLoginRequestDTO): Promise<ApiResponse<any>> {
     try {
       const response = await apiClient.post(API_ENDPOINTS.AUTH.LOGIN, credentials);
       return [response.data, null];
@@ -13,7 +14,7 @@ export const authDAO = {
     }
   },
 
-  async register(userData: any): Promise<ApiResponse<any>> {
+  async register(userData: UserEnrollDTO): Promise<ApiResponse<any>> {
     try {
       const response = await apiClient.post(API_ENDPOINTS.AUTH.REGISTER, userData);
       return [response.data, null];
@@ -42,7 +43,7 @@ export const authDAO = {
 
   async refreshToken(): Promise<ApiResponse<any>> {
     try {
-      const response = await apiClient.post(API_ENDPOINTS.AUTH.REFRESH_TOKEN);
+      const response = await refreshClient.post(API_ENDPOINTS.AUTH.REFRESH_TOKEN);
       return [response.data, null];
     } catch (err: any) {
       return [null, err.response?.data?.message || 'Token refresh failed'];
@@ -58,18 +59,18 @@ export const authDAO = {
     }
   },
 
-  async verifyResetCode(code: string): Promise<ApiResponse<any>> {
+  async verifyResetCode(data: VerifyCodeRequestDTO): Promise<ApiResponse<any>> {
     try {
-      const response = await apiClient.post(API_ENDPOINTS.AUTH.VERIFY_RESET_CODE, { code });
+      const response = await apiClient.post(API_ENDPOINTS.AUTH.VERIFY_RESET_CODE, data);
       return [response.data, null];
     } catch (err: any) {
       return [null, err.response?.data?.message || 'Code verification failed'];
     }
   },
 
-  async submitNewPassword(password: string): Promise<ApiResponse<any>> {
+  async submitNewPassword(data: SubmitPasswordResetRequestDTO): Promise<ApiResponse<any>> {
     try {
-      const response = await apiClient.post(API_ENDPOINTS.AUTH.SUBMIT_RESET, { password });
+      const response = await apiClient.post(API_ENDPOINTS.AUTH.SUBMIT_RESET, data);
       return [response.data, null];
     } catch (err: any) {
       return [null, err.response?.data?.message || 'Password submission failed'];

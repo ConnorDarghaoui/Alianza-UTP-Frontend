@@ -15,6 +15,7 @@ const searchTerm = ref('');
 const categoryFilter = ref('all');
 
 const filteredClubs = computed(() => {
+  if (!clubs.value) return []; // Ensure clubs.value is not null or undefined
   return clubs.value.filter(club => {
     const searchMatch = searchTerm.value.trim() === '' ||
       club.group_name.toLowerCase().includes(searchTerm.value.toLowerCase()) ||

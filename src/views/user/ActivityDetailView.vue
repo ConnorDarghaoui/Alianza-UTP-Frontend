@@ -22,7 +22,7 @@ onMounted(() => {
   <div v-if="activity && !isLoading" class="max-w-4xl mx-auto p-4 sm:p-6 lg:p-8">
     <header class="pb-6 border-b-2 border-accent">
       <p class="font-semibold text-accent mb-1">Actividad:</p>
-      <h1 class="text-4xl font-extrabold text-darkText tracking-tight">{{ activity.activity_name }}</h1>
+      <h1 class="text-4xl font-extrabold text-darkText tracking-tight">{{ activity.name }}</h1>
     </header>
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-6">

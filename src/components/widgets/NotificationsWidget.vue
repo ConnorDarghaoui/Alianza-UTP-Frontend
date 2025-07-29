@@ -26,31 +26,12 @@ const fetchNotifications = async () => {
       notifications.value = data.slice(0, 3); // Solo mostrar las 3 más recientes
     } else {
       console.warn('Notifications response is not an array:', data);
-      // Si la respuesta es un objeto con un array interno
-      if (data && typeof data === 'object') {
-        const objectData = data as any;
-        const possibleArray = objectData.notifications || objectData.data || objectData.items;
-        if (Array.isArray(possibleArray)) {
-          notifications.value = possibleArray.slice(0, 3);
-        } else {
-          // Si no hay notificaciones válidas, usar array vacío
-          notifications.value = [];
-        }
-      } else {
-        // Si los datos no son un objeto ni un array, usar array vacío
-        notifications.value = [];
-      }
+      notifications.value = [];
     }
   } catch (err: any) {
     error.value = 'Error cargando notificaciones';
     console.error('Error fetching notifications:', err);
-    // Fallback a las notificaciones del store si hay error en API
-    const userNotifications = authStore.user?.notifications;
-    if (Array.isArray(userNotifications)) {
-      notifications.value = userNotifications.slice(0, 3);
-    } else {
-      notifications.value = [];
-    }
+    notifications.value = [];
   } finally {
     loading.value = false;
   }
@@ -94,18 +75,7 @@ watch(readNotificationIds, (newIds, oldIds) => {
 
 // Notificaciones computadas con fallback
 const displayNotifications = computed(() => {
-  if (notifications.value.length > 0) {
-    return notifications.value;
-  }
-  // Fallback a notificaciones del store si están disponibles
-  const userNotifications = authStore.user?.notifications;
-  
-  // Asegurar que sea un array antes de usar slice
-  if (Array.isArray(userNotifications)) {
-    return userNotifications.slice(0, 3);
-  }
-  
-  return [];
+  return notifications.value;
 });
 
 // Función para formatear fechas
@@ -159,7 +129,7 @@ const formatDate = (dateString: string) => {
         :class="{ 'bg-blue-50': !readNotificationIds.includes(notif.id) }"
       >
         <p class="font-medium text-darkText">{{ notif.message || 'Notificación sin texto' }}</p>
-        <p class="text-xs text-gray-500 mt-1">{{ formatDate(notif.created_at) || 'Sin fecha' }}</p>
+        <p class="text-xs text-gray-500 mt-1">{{ formatDate(notif.createdAt) || 'Sin fecha' }}</p>
       </div>
     </div>
   </div>

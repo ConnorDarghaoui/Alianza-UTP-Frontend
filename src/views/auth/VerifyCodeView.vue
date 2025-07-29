@@ -56,7 +56,7 @@ async function handleVerifyCode(): Promise<void> {
       verificationCode: verificationCode.value.trim()
     }
 
-    const [data, errorObj] = await authDAO.verifyResetCode(payload.verificationCode)
+    const [data, errorObj] = await authDAO.verifyResetCode(payload)
     
     // Si la verificación es exitosa, redirigir a reset password con el código
     router.push({

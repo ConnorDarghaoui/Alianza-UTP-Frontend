@@ -83,7 +83,7 @@ export const useActivityStore = defineStore('activity', {
       }
     },
 
-    async createActivity(activityData: Omit<Activity, 'id'>): Promise<Activity | undefined> {
+    async createActivity(activityData: Omit<Activity, 'activityId'>): Promise<Activity | undefined> {
       this.isLoading = true;
       this.error = null;
       try {
@@ -103,7 +103,7 @@ export const useActivityStore = defineStore('activity', {
       }
     },
 
-    async adminCreateActivity(clubId: string, activityData: Omit<Activity, 'id'>): Promise<Activity | undefined> {
+    async adminCreateActivity(clubId: string, activityData: Omit<Activity, 'activityId'>): Promise<Activity | undefined> {
       this.isLoading = true;
       this.error = null;
       try {
@@ -123,18 +123,18 @@ export const useActivityStore = defineStore('activity', {
       }
     },
 
-    async updateActivity(id: string | number, activityData: Partial<Omit<Activity, 'id'>>): Promise<Activity | undefined> {
+    async updateActivity(id: string | number, activityData: Partial<Omit<Activity, 'activityId'>>): Promise<Activity | undefined> {
       this.isLoading = true;
       this.error = null;
       try {
         const [data, errorObj] = await activityDAO.update(id, activityData);
         if (data) {
           // Update the activity in the list
-          const index = this.activities.findIndex(a => a.id === id);
+          const index = this.activities.findIndex(a => a.activityId === id);
           if (index !== -1) {
             this.activities[index] = data;
           }
-          if (this.selectedActivity && this.selectedActivity.id === id) {
+          if (this.selectedActivity && this.selectedActivity.activityId === id) {
             this.selectedActivity = data;
           }
           return data;
@@ -150,18 +150,18 @@ export const useActivityStore = defineStore('activity', {
       }
     },
 
-    async adminUpdateActivity(id: string | number, activityData: Partial<Omit<Activity, 'id'>>): Promise<Activity | undefined> {
+    async adminUpdateActivity(id: string | number, activityData: Partial<Omit<Activity, 'activityId'>>): Promise<Activity | undefined> {
       this.isLoading = true;
       this.error = null;
       try {
         const [data, errorObj] = await activityDAO.adminUpdate(id, activityData);
         if (data) {
           // Update the activity in the list
-          const index = this.activities.findIndex(a => a.id === id);
+          const index = this.activities.findIndex(a => a.activityId === id);
           if (index !== -1) {
             this.activities[index] = data;
           }
-          if (this.selectedActivity && this.selectedActivity.id === id) {
+          if (this.selectedActivity && this.selectedActivity.activityId === id) {
             this.selectedActivity = data;
           }
           return data;
@@ -183,8 +183,8 @@ export const useActivityStore = defineStore('activity', {
       try {
         const [, errorObj] = await activityDAO.delete(id);
         if (!errorObj) {
-          this.activities = this.activities.filter(a => a.id !== id);
-          if (this.selectedActivity && this.selectedActivity.id === id) {
+          this.activities = this.activities.filter(a => a.activityId !== id);
+          if (this.selectedActivity && this.selectedActivity.activityId === id) {
             this.selectedActivity = null;
           }
         } else {
@@ -205,8 +205,8 @@ export const useActivityStore = defineStore('activity', {
       try {
         const [, errorObj] = await activityDAO.adminCancel(id);
         if (!errorObj) {
-          this.activities = this.activities.filter(a => a.id !== id);
-          if (this.selectedActivity && this.selectedActivity.id === id) {
+          this.activities = this.activities.filter(a => a.activityId !== id);
+          if (this.selectedActivity && this.selectedActivity.activityId === id) {
             this.selectedActivity = null;
           }
         } else {

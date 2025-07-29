@@ -130,8 +130,10 @@ async function uploadImage() {
     if (props.isProfilePhoto) {
       resultUrl = await imageStore.updateProfilePhotoFile(selectedFile.value);
     } else {
-      const response = await imageStore.uploadImageFile(selectedFile.value, props.label, props.label); // Usar label como title/description
-      resultUrl = response.imageUrl;
+      // Si no es una foto de perfil, y no hay un endpoint genérico de subida,
+      // esto debería ser manejado por un componente más específico o un nuevo endpoint.
+      // Por ahora, lanzamos un error o manejamos según la necesidad del proyecto.
+      throw new Error('No se ha definido un endpoint de subida de imagen genérico.');
     }
     
     emit('update:modelValue', resultUrl);
@@ -142,7 +144,7 @@ async function uploadImage() {
     localPreviewUrl.value = resultUrl; // Mostrar la imagen subida como preview final
   } catch (error: any) {
     console.error('Error al subir imagen:', error);
-    const msg = error.response?.data?.message || 'Error al subir la imagen.';
+    const msg = error.message || error.response?.data?.message || 'Error al subir la imagen.';
     emit('error', msg);
     imageStore.error = msg; // Asegurarse de que el error esté en el store
   } finally {

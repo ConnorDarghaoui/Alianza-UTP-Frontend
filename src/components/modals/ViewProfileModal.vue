@@ -21,12 +21,12 @@ const authStore = useAuthStore();
 // El formulario ahora puede incluir todos los campos de forma segura
 // porque están definidos en UserDTO.
 const form = reactive({
-  name: authStore.user?.firstName || '',
-  last_name: authStore.user?.lastName || '',
+  name: authStore.user?.name || '',
+  last_name: authStore.user?.last_name || '',
   email: authStore.user?.email || '',
   phone: authStore.user?.phone || '',
   about_me: authStore.user?.about_me || '',
-  career: ''
+  career: authStore.user?.career || ''
 });
 
 function saveChanges() {
@@ -49,7 +49,7 @@ function saveChanges() {
       <!-- Sección de foto de perfil -->
       <div class="flex justify-center mb-6">
         <ProfilePictureUpload 
-          :current-image-url="authStore.user?.profile_image_url"
+          :current-image-url="authStore.user?.profile_photo_url"
           size="large"
         />
       </div>

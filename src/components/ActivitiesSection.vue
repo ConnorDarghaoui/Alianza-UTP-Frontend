@@ -38,12 +38,11 @@ defineProps<{
     <div v-if="activities && activities.length > 0" class="grid grid-cols-1 md:grid-cols-2 gap-4">
       <div 
         v-for="activity in activities" 
-        :key="activity.id" 
+        :key="activity.activityId" 
         class="bg-card border border-gray-200 rounded-lg p-4 flex flex-col justify-between shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300"
       >
         <div>
-          <p class="text-base font-bold text-primary">{{ activity.activity_name }}</p>
-          <span class="text-sm text-gray-500">{{ activity.club_id }}</span>
+          <p class="text-base font-bold text-primary">{{ activity.name }}</p>
         </div>
         
         <div class="mt-3 flex items-center justify-between">
@@ -52,7 +51,7 @@ defineProps<{
               {{ activity.start_date ? new Date(activity.start_date).toLocaleDateString('es-PA') : 'Fecha no disponible' }}
             </span>
           <RouterLink 
-            :to="{ name: 'ActivityDetail', params: { id: activity.id } }" 
+            :to="{ name: 'ActivityDetail', params: { id: activity.activityId } }" 
             class="px-3 py-1 text-xs font-bold text-white bg-primary rounded-full hover:bg-primary-dark transition-colors"
             aria-label="Ver detalles de la actividad"
           >

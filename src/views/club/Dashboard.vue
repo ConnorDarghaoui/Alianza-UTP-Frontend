@@ -67,8 +67,8 @@ const filteredUpcomingActivities = computed(() => {
     const start = eventFilters.value.startDate ? new Date(eventFilters.value.startDate) : null;
     const end = eventFilters.value.endDate ? new Date(eventFilters.value.endDate) : null;
 
-    const keywordMatch = eventFilters.value.keyword.trim() === '' || a.activity_name.toLowerCase().includes(eventFilters.value.keyword.toLowerCase());
-    const typeMatch = eventFilters.value.type === 'all' || a.activity_type === eventFilters.value.type;
+    const keywordMatch = eventFilters.value.keyword.trim() === '' || a.name.toLowerCase().includes(eventFilters.value.keyword.toLowerCase());
+    const typeMatch = eventFilters.value.type === 'all' || a.status === eventFilters.value.type;
     const dateMatch = (!start || activityDate >= start) && (!end || activityDate <= end);
 
     return keywordMatch && typeMatch && dateMatch;
@@ -216,11 +216,11 @@ onMounted(() => {
                 <tbody class="bg-white divide-y divide-gray-200">
                     <tr v-if="activityLoading"><td colspan="4" class="text-center py-8">Cargando...</td></tr>
                     <tr v-else-if="filteredUpcomingActivities.length === 0"><td colspan="4" class="text-center py-8">No hay eventos próximos.</td></tr>
-                    <tr v-else v-for="activity in filteredUpcomingActivities" :key="activity.id" class="hover:bg-soft">
-                        <td class="px-6 py-4 font-medium">{{ activity.activity_name }}</td>
+                    <tr v-else v-for="activity in filteredUpcomingActivities" :key="activity.activityId" class="hover:bg-soft">
+                        <td class="px-6 py-4 font-medium">{{ activity.name }}</td>
                         <td class="px-6 py-4">{{ new Date(activity.start_date).toLocaleDateString('es-PA') }}</td>
                         <td class="px-6 py-4">{{ activity.max_participants }}</td>
-                        <td class="px-6 py-4"><span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Activa</span></td>
+                        <td class="px-6 py-4"><span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">{{ activity.status }}</span></td>
                     </tr>
                 </tbody>
             </table>

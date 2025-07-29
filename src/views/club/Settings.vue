@@ -29,9 +29,9 @@ const confirmationText = ref('');
 watch(clubDetails, (newDetails) => {
   if (newDetails) {
     form.value = {
-      name: newDetails.name,
-      description: newDetails.description,
-      category: newDetails.category,
+      group_name: newDetails.group_name,
+      group_description: newDetails.group_description,
+      group_category: newDetails.group_category,
       logo_url: newDetails.logo_url,
       status: newDetails.status
     };
@@ -88,13 +88,13 @@ onMounted(() => { clubStore.fetchClubDetails(clubId); });
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div class="md:col-span-2 space-y-4">
             <label class="block text-sm font-medium text-gray-700">Nombre del Club</label>
-            <input type="text" v-model="form.name" class="input-focus-effect w-full" />
+            <input type="text" v-model="form.group_name" class="input-focus-effect w-full" />
             
             <label class="block text-sm font-medium text-gray-700">Descripción</label>
-            <textarea v-model="form.description" rows="5" class="input-focus-effect w-full"></textarea>
+            <textarea v-model="form.group_description" rows="5" class="input-focus-effect w-full"></textarea>
             
             <label class="block text-sm font-medium text-gray-700">Categoría</label>
-            <input type="text" v-model="form.category" class="input-focus-effect w-full" />
+            <input type="text" v-model="form.group_category" class="input-focus-effect w-full" />
             
             <label class="block text-sm font-medium text-gray-700">Estado</label>
             <select v-model="form.status" class="input-focus-effect w-full">

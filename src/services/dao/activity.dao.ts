@@ -27,7 +27,7 @@ export class ActivityDAO extends BaseApiService<Activity> {
     }
   }
 
-  async adminCreate(clubId: string, data: Omit<Activity, 'id'>): Promise<[Activity, null] | [null, AxiosError]> {
+  async adminCreate(clubId: string, data: Omit<Activity, 'activityId'>): Promise<[Activity, null] | [null, AxiosError]> {
     try {
       const response = await api.post(API_ENDPOINTS.ADMIN.ACTIVITIES.CREATE(clubId), data);
       return [response.data, null];
@@ -45,7 +45,7 @@ export class ActivityDAO extends BaseApiService<Activity> {
     }
   }
 
-  async adminUpdate(activityId: string | number, data: Partial<Omit<Activity, 'id'>>): Promise<[Activity, null] | [null, AxiosError]> {
+  async adminUpdate(activityId: string | number, data: Partial<Omit<Activity, 'activityId'>>): Promise<[Activity, null] | [null, AxiosError]> {
     try {
       const response = await api.put(API_ENDPOINTS.ADMIN.ACTIVITIES.UPDATE(activityId), data);
       return [response.data, null];

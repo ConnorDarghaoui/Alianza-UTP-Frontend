@@ -65,7 +65,7 @@ async function handleSubmit(): Promise<void> {
       newPassword: form.value.newPassword
     }
 
-    const [data, errorObj] = await authDAO.submitNewPassword(payload.newPassword)
+    const [data, errorObj] = await authDAO.submitNewPassword(payload)
     passwordReset.value = true
 
   } catch (err: any) {

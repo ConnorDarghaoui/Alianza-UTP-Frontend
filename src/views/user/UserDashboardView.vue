@@ -110,7 +110,7 @@ onMounted(() => {
         <div class="lg:col-span-1 space-y-8">
           <UpcomingEventsWidget :activities="activityStore.activities || []" />
           <CalendarWidget :activities="activityStore.activities || []" />
-          <NotificationsWidget :notifications="authStore.user?.notifications || []" />
+          <NotificationsWidget :notifications="authStore.user?.unread_notifications || []" />
         </div>
 
       </div>

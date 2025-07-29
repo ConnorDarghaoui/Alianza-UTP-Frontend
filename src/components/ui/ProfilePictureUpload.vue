@@ -27,7 +27,7 @@ const userStore = useUserStore();
 
 // Computed
 const displayUrl = computed(() => {
-  return props.currentImageUrl || authStore.user?.profile_image_url || null;
+  return props.currentImageUrl || authStore.user?.profile_photo_url || null;
 });
 
 const avatarSize = computed(() => {
@@ -40,7 +40,7 @@ const avatarSize = computed(() => {
 });
 
 const defaultAvatar = computed(() => {
-  const userId = authStore.user?.id || 1;
+  const userId = authStore.user?.userId || 1;
   return `https://i.pravatar.cc/150?u=${userId}`;
 });
 
@@ -57,14 +57,14 @@ function openProfilePictureUploadModal() {
       <img 
         v-if="displayUrl"
         :src="displayUrl" 
-        :alt="authStore.user?.firstName || 'Usuario'"
+        :alt="authStore.user?.name || 'Usuario'"
         class="w-full h-full object-cover"
         @error="(e) => (e.target as HTMLImageElement).src = defaultAvatar"
       />
       <img 
         v-else
         :src="defaultAvatar" 
-        :alt="authStore.user?.firstName || 'Usuario'"
+        :alt="authStore.user?.name || 'Usuario'"
         class="w-full h-full object-cover"
       />
     </div>

@@ -3,11 +3,12 @@ import { useAuthStore } from '@/store/auth.store';
 import { useRouter } from 'vue-router';
 
 // Create a separate instance for refresh requests to avoid interceptors
-const refreshClient = axios.create({
+export const refreshClient = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL,
   headers: {
     'Content-Type': 'application/json',
   },
+  withCredentials: true, // Crucial for sending/receiving cookies (refresh token)
 });
 
 // Queue for failed requests
@@ -34,6 +35,7 @@ const apiClient = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
+  withCredentials: true, // Crucial for sending/receiving cookies (refresh token)
 });
 
 // Request interceptor

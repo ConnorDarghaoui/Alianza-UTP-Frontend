@@ -20,7 +20,7 @@ const { activities, isLoading } = storeToRefs(activityStore);
 const clubId = Number(route.params.id);
 
 // --- ESTADO LOCAL DEL COMPONENTE ---
-const filters = ref({ keyword: '', type: 'all', startDate: '', endDate: '', status: 'all' });
+const filters = ref({ keyword: '', type: 'all', start_date: '', end_time: '', status: 'all' });
 const showActivityModal = ref(false);
 const editingActivity = ref<Partial<Activity & { activityId?: number }>>({});
 
@@ -28,10 +28,10 @@ const editingActivity = ref<Partial<Activity & { activityId?: number }>>({});
 const filteredActivities = computed(() => {
   return activities.value.filter((act: Activity) => {
     const activityDate = new Date(act.start_date || '');
-    const start = filters.value.startDate ? new Date(filters.value.startDate) : null;
-    const end = filters.value.endDate ? new Date(filters.value.endDate) : null;
+    const start = filters.value.start_date ? new Date(filters.value.start_date) : null;
+    const end = filters.value.end_time ? new Date(filters.value.end_time) : null;
 
-    const keywordMatch = filters.value.keyword.trim() === '' || act.activity_name.toLowerCase().includes(filters.value.keyword.toLowerCase());
+    const keywordMatch = filters.value.keyword.trim() === '' || act.name.toLowerCase().includes(filters.value.keyword.toLowerCase());
     const typeMatch = filters.value.type === 'all' || act.activity_type === filters.value.type;
     const dateMatch = (!start || activityDate >= start) && (!end || activityDate <= end);
 
@@ -83,14 +83,15 @@ function openCreateModal() {
 
 function openEditModal(activity: Activity) {
   editingActivity.value = { 
-    id: activity.id,
-    activity_name: activity.activity_name,
+    activityId: activity.activityId,
+    name: activity.name,
     activity_description: activity.activity_description,
     max_participants: activity.max_participants,
     activity_type: activity.activity_type,
     start_date: activity.start_date,
     end_time: activity.end_time,
-    location: activity.location
+    location: activity.location,
+    status: activity.status
   };
   showActivityModal.value = true;
 }
@@ -98,20 +99,19 @@ function openEditModal(activity: Activity) {
 function saveActivity() {
   if (editingActivity.value) {
     // Create a properly typed activity object
-    const activityData: Omit<Activity, 'id'> = {
-      activity_name: editingActivity.value.activity_name || '',
+    const activityData: Omit<Activity, 'activityId'> = {
+      name: editingActivity.value.name || '',
       activity_description: editingActivity.value.activity_description || '',
       max_participants: editingActivity.value.max_participants || 0,
       activity_type: editingActivity.value.activity_type || 'Taller',
       start_date: editingActivity.value.start_date || new Date().toISOString(),
       end_time: editingActivity.value.end_time || new Date().toISOString(),
       location: editingActivity.value.location || '',
-      club_id: clubId,
-      club_name: ''
+      status: editingActivity.value.status || 'Programada',
     };
 
-    if (editingActivity.value.id) {
-      activityStore.adminUpdateActivity(String(editingActivity.value.id), activityData);
+    if (editingActivity.value.activityId) {
+      activityStore.adminUpdateActivity(String(editingActivity.value.activityId), activityData);
     } else {
       activityStore.adminCreateActivity(String(clubId), activityData);
     }
@@ -161,30 +161,28 @@ onMounted(() => {
                 <option value="all">Todos los estados</option>
                 <option>Programada</option><option>Realizada</option><option>Cancelada</option>
             </select>
-            <input type="date" v-model="filters.startDate" class="input-focus-effect" />
-            <input type="date" v-model="filters.endDate" class="input-focus-effect" />
+            <input type="date" v-model="filters.start_date" class="input-focus-effect" />
+            <input type="date" v-model="filters.end_time" class="input-focus-effect" />
         </div>
 
         <div class="overflow-x-auto">
             <table class="min-w-full divide-y divide-gray-200">
                 <thead class="bg-gray-50">
                     <tr>
-                        <th class="th-cell">Nombre</th><th class="th-cell">Tipo</th><th class="th-cell">Fecha</th><th class="th-cell">Cupo Máximo</th><th class="th-cell">Plazas Disponibles</th><th class="th-cell">Estado</th><th class="th-cell">Acciones</th>
+                        <th class="th-cell">Nombre</th><th class="th-cell">Tipo</th><th class="th-cell">Fecha</th><th class="th-cell">Estado</th><th class="th-cell">Acciones</th>
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
                     <tr v-if="isLoading"><td colspan="7" class="td-cell text-center">Cargando...</td></tr>
                     <tr v-else-if="filteredActivities.length === 0"><td colspan="7" class="td-cell text-center">No se encontraron actividades.</td></tr>
-                    <tr v-else v-for="act in filteredActivities" :key="act.id" class="hover:bg-soft">
-                        <td class="td-cell font-medium">{{ act.activity_name }}</td>
+                    <tr v-else v-for="act in filteredActivities" :key="act.activityId" class="hover:bg-soft">
+                        <td class="td-cell font-medium">{{ act.name }}</td>
                         <td class="td-cell">{{ act.activity_type }}</td>
                         <td class="td-cell">{{ new Date(act.start_date).toLocaleString('es-PA') }}</td>
-                        <td class="td-cell">{{ act.max_participants ?? 0 }}</td>
-                        <td class="td-cell">{{ act.max_participants ?? 0 }}</td>
-                        <td class="td-cell"><span class="status-pill" :class="'bg-gray-100 text-gray-800'">N/A</span></td>
+                        <td class="td-cell"><span class="status-pill" :class="'bg-gray-100 text-gray-800'">{{ act.status }}</span></td>
                         <td class="td-cell space-x-2">
                             <button @click="openEditModal(act)" class="text-primary hover:text-primary-dark"><LucideIcon name="edit" :size="16"/></button>
-                            <button @click="deleteActivity(act.id)" class="text-red-600 hover:text-red-800"><LucideIcon name="trash-2" :size="16"/></button>
+                            <button @click="deleteActivity(act.activityId)" class="text-red-600 hover:text-red-800"><LucideIcon name="trash-2" :size="16"/></button>
                         </td>
                     </tr>
                 </tbody>
@@ -197,13 +195,18 @@ onMounted(() => {
             <div class="p-6">
                 <h3 class="text-lg font-bold mb-4">{{ editingActivity.activityId ? 'Editar' : 'Crear' }} Actividad</h3>
                 <div class="space-y-4">
-                    <input type="text" placeholder="Nombre de la actividad" v-model="editingActivity.activity_name" class="input-focus-effect w-full"/>
+                    <input type="text" placeholder="Nombre de la actividad" v-model="editingActivity.name" class="input-focus-effect w-full"/>
                     <textarea placeholder="Descripción" v-model="editingActivity.activity_description" class="input-focus-effect w-full" rows="3"></textarea>
                     <input type="number" placeholder="Máximo de participantes" v-model="editingActivity.max_participants" class="input-focus-effect w-full"/>
                     <input type="text" placeholder="Tipo de actividad" v-model="editingActivity.activity_type" class="input-focus-effect w-full"/>
                     <input type="datetime-local" placeholder="Fecha y hora de inicio" v-model="editingActivity.start_date" class="input-focus-effect w-full"/>
                     <input type="datetime-local" placeholder="Fecha y hora de fin" v-model="editingActivity.end_time" class="input-focus-effect w-full"/>
                     <input type="text" placeholder="Ubicación" v-model="editingActivity.location" class="input-focus-effect w-full"/>
+                    <select v-model="editingActivity.status" class="input-focus-effect w-full">
+                        <option value="Programada">Programada</option>
+                        <option value="Realizada">Realizada</option>
+                        <option value="Cancelada">Cancelada</option>
+                    </select>
                 </div>
             </div>
             <div class="bg-gray-50 p-4 flex justify-end gap-3">

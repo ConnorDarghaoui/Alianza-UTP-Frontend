@@ -39,16 +39,16 @@ const notificationButton = ref<HTMLElement | null>(null);
 const notificationPanelDropdown = ref<HTMLElement | null>(null);
 
 // --- SECCIÓN DE PROPIEDADES COMPUTADAS ---
-const userName = computed((): string => authStore.user?.firstName || authStore.user?.username || 'Usuario');
-const userPhoto = computed((): string | undefined => authStore.user?.profile_image_url || undefined);
+const userName = computed((): string => authStore.user?.name || authStore.user?.username || 'Usuario');
+const userPhoto = computed((): string | undefined => authStore.user?.profile_photo_url || undefined);
 const isUserMenuOpen = computed(() => isProfileDropdownOpen.value);
 const isNotificationPanelOpen = computed(() => isNotificationPanelOpenLocal.value);
 
 const showAdminButton = computed(() => {
   const user = authStore.user;
-  if (!user || !user.roles) return false;
+  if (!user || !user.role) return false;
   
-  const isAdminOrLeader = user.roles.includes('ADMIN') || user.roles.includes('LEADER');
+  const isAdminOrLeader = user.role.includes('ADMIN') || user.role.includes('LEADER');
   const hasClubs = clubStore.clubs && clubStore.clubs.length > 0;
 
   return isAdminOrLeader && hasClubs;
@@ -185,7 +185,7 @@ watch(isNotificationPanelOpen, (newValue) => {
                 <div ref="userMenuDropdown" v-if="isProfileDropdownOpen" @click.stop class="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-card ring-1 ring-black ring-opacity-5 focus:outline-none">
                   <div class="px-4 py-3 border-b border-gray-200">
                     <div class="flex items-center gap-3">
-                      <img v-if="authStore.user?.profile_image_url" class="h-10 w-10 rounded-full object-cover" :src="authStore.user.profile_image_url" alt="Foto de perfil">
+                      <img v-if="authStore.user?.profile_photo_url" class="h-10 w-10 rounded-full object-cover" :src="authStore.user.profile_photo_url" alt="Foto de perfil">
                       <div v-else class="h-10 w-10 rounded-full bg-accent flex items-center justify-center font-bold text-primary text-lg">{{ userName.charAt(0) }}</div>
                       <div>
                         <p class="text-sm font-semibold text-darkText">{{ userName }}</p>

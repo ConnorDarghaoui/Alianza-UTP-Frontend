@@ -54,7 +54,7 @@ function handleInvite() {
 
 function toggleSelectAll() {
   if (isAllSelected.value) selectedMembers.value = [];
-  else selectedMembers.value = members.value.map((m: ClubMember) => m.user_id);
+  else selectedMembers.value = members.value.map((m: ClubMember) => m.userId);
 }
 
 async function applyBulkAction(action: 'activate' | 'deactivate' | 'remove' | 'changeRole') {
@@ -166,12 +166,12 @@ onMounted(fetchMembers);
           <tbody class="bg-white divide-y divide-gray-200">
             <tr v-if="clubStore.isLoadingDetails"><td colspan="4" class="text-center py-8 text-gray-500">Cargando miembros...</td></tr>
             <tr v-else v-for="member in members" :key="member.userId" class="hover:bg-soft">
-              <td class="p-4"><input type="checkbox" v-model="selectedMembers" :value="member.user_id" class="rounded"/></td>
+              <td class="p-4"><input type="checkbox" v-model="selectedMembers" :value="member.userId" class="rounded"/></td>
               <td class="px-6 py-4">
                 <div class="flex items-center">
-                  <img class="h-10 w-10 rounded-full object-cover" :src="member.profile_photo_url || `https://i.pravatar.cc/40?u=${member.user_id}`" :alt="member.full_name">
+                  <img class="h-10 w-10 rounded-full object-cover" :src="member.profile_photo_url || `https://i.pravatar.cc/40?u=${member.userId}`" :alt="member.name">
                   <div class="ml-4">
-                    <div class="text-sm font-medium text-darkText">{{ member.full_name }}</div>
+                    <div class="text-sm font-medium text-darkText">{{ member.name }}</div>
                     <div class="text-sm text-gray-500">{{ member.email }}</div>
                   </div>
                 </div>

@@ -30,18 +30,9 @@ export const API_ENDPOINTS = {
     GET_MY_CLUBS: '/api/users/me/groups', // GET
     GET_NOTIFICATIONS: '/api/users/me/notifications', // GET
     UPDATE_NOTIFICATIONS: '/api/users/me/notifications', // PUT
-    GET_UPCOMING_EVENTS: '/api/user/me/events', // GET (Corregido de '/api/user/me/events')
-    JOIN_ACTIVITY: (activityId: number | string) => `/api/users/me/activity/${activityId}`, // POST (Corregido de '/api/user/me/...')
-    LEAVE_ACTIVITY: (activityId: number | string) => `/api/users/me/activity/${activityId}`, // PUT (Corregido de '/api/user/me/...')
-  },
-
-  /**
-   * Endpoints de Subida de Imágenes
-   * Nota: Este endpoint no se encuentra en la colección Postman proporcionada.
-   * Si no se usa o no existe en el backend, debería eliminarse.
-   */
-  IMAGES: {
-    UPLOAD: '/api/images/upload',
+    GET_UPCOMING_EVENTS: '/api/user/me/events', // GET
+    JOIN_ACTIVITY: (activityId: number | string) => `/api/user/me/activity/${activityId}`, // POST
+    LEAVE_ACTIVITY: (activityId: number | string) => `/api/user/me/activity/${activityId}`, // PUT
   },
 
   /**
@@ -58,10 +49,10 @@ export const API_ENDPOINTS = {
   CLUBS: {
     GET_ALL: '/api/groups', // GET
     CREATE: '/api/groups', // POST
-    GET_BY_ID: (id: number | string) => `/api/groups/${id}`, // GET
-    GET_ACTIVITIES: (id: number | string) => `/api/groups/${id}/activities`, // GET
-    REQUEST_TO_JOIN: (id: number | string) => `/api/groups/${id}/join`, // POST
-    UPDATE_PHOTO: (id: number | string) => `/api/groups/${id}/photo`, // PUT (multipart)
+    GET_BY_ID: (groupId: number | string) => `/api/groups/${groupId}`, // GET
+    GET_ACTIVITIES: (groupId: number | string) => `/api/groups/${groupId}/activities`, // GET
+    REQUEST_TO_JOIN: (groupId: number | string) => `/api/groups/${groupId}/join`, // POST
+    UPDATE_PHOTO: (groupId: number | string) => `/api/groups/${groupId}/photo`, // PUT (multipart)
   },
 
   /**

@@ -1,12 +1,14 @@
 export interface Activity {
-  id: number; // o string
-  activity_name: string;
-  activity_description: string;
-  max_participants: number;
-  activity_type: 'Taller' | 'Conferencia' | 'Evento Social'; // Adapta a tus tipos
-  start_date: string; // Formato de fecha-hora ISO, ej: '2025-07-24T19:00:00'
+  activityId: number;
+  name: string;
+  start_date: string;
   end_time: string;
   location: string;
-  club_id: number;
-  club_name: string;
+  status: string;
+  enroll_count?: number; // Opcional, ya que no todas las listas de actividades lo tendrán
+  activity_description?: string; // Opcional, para detalles
+  max_participants?: number; // Opcional, para detalles
+  activity_type?: string; // Opcional, para detalles
+  club_id?: number; // Opcional, para detalles
+  club_name?: string; // Opcional, para detalles
 }

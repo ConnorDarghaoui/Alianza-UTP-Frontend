@@ -19,12 +19,12 @@ const authStore = useAuthStore();
 // Creamos un formulario reactivo solo con los campos necesarios.
 // Se inicializa con los datos actuales del usuario desde el store.
 const form = reactive({
-  name: authStore.user?.firstName || '',
-  last_name: authStore.user?.lastName || '',
+  name: authStore.user?.name || '',
+  last_name: authStore.user?.last_name || '',
   email: authStore.user?.email || '',
   phone: authStore.user?.phone || '',
   about_me: authStore.user?.about_me || '',
-  career: ''
+  career: authStore.user?.career || ''
 });
 
 /**

@@ -28,11 +28,10 @@ const categoryFilter = ref('all');
 const filteredActivities = computed(() => {
   return activities.value.filter((activity: Activity) => {
     const searchMatch = searchQuery.value.trim() === '' ||
-      activity.activity_name.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
-      activity.club_id?.toString().toLowerCase().includes(searchQuery.value.toLowerCase());
+      activity.name.toLowerCase().includes(searchQuery.value.toLowerCase());
     
     const categoryMatch = categoryFilter.value === 'all' ||
-      activity.activity_type === categoryFilter.value;
+      activity.status === categoryFilter.value;
       
     return searchMatch && categoryMatch;
   });
@@ -78,16 +77,15 @@ onMounted(() => {
       </div>
 
       <div v-else-if="filteredActivities.length > 0" class="space-y-4">
-        <div v-for="activity in filteredActivities" :key="activity.id" class="bg-card border border-gray-200 rounded-xl p-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 shadow-sm hover:shadow-xl transition-shadow">
+        <div v-for="activity in filteredActivities" :key="activity.activityId" class="bg-card border border-gray-200 rounded-xl p-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 shadow-sm hover:shadow-xl transition-shadow">
           <div>
-            <span class="text-xs font-bold uppercase text-accent">{{ activity.club_id }}</span>
-            <h3 class="text-xl font-bold text-primary">{{ activity.activity_name }}</h3>
+            <h3 class="text-xl font-bold text-primary">{{ activity.name }}</h3>
             <div class="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-gray-600 mt-1">
               <span class="flex items-center gap-1.5"><LucideIcon name="calendar-days" :size="16"/> {{ new Date(activity.start_date).toLocaleDateString('es-PA') }}</span>
               <span class="flex items-center gap-1.5"><LucideIcon name="map-pin" :size="16"/> {{ activity.location || 'Online' }}</span>
             </div>
           </div>
-          <RouterLink :to="{ name: 'ActivityDetail', params: { id: activity.id } }" class="mt-4 sm:mt-0 flex-shrink-0 px-6 py-2 text-center font-semibold bg-primary text-white rounded-lg hover:bg-primary-dark">
+          <RouterLink :to="{ name: 'ActivityDetail', params: { id: activity.activityId } }" class="mt-4 sm:mt-0 flex-shrink-0 px-6 py-2 text-center font-semibold bg-primary text-white rounded-lg hover:bg-primary-dark">
             Ver Detalles
           </RouterLink>
         </div>

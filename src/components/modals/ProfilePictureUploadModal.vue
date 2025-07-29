@@ -42,11 +42,11 @@ const emit = defineEmits(['close', 'upload-success']);
 const authStore = useAuthStore();
 
 // Usar la URL de la foto de perfil actual del usuario autenticado
-const currentImageUrl = ref(authStore.user?.profile_image_url || null);
+const currentImageUrl = ref(authStore.user?.profile_photo_url || null);
 
 // Observar cambios en la URL de la foto de perfil del store de autenticación
 // para mantener el componente actualizado si la imagen cambia por otras vías
-watch(() => authStore.user?.profile_image_url, (newUrl) => {
+watch(() => authStore.user?.profile_photo_url, (newUrl) => {
   currentImageUrl.value = newUrl || null;
 });
 
@@ -58,7 +58,7 @@ const handleImageUploaded = (imageUrl: string) => {
   // Actualizar la URL de la foto de perfil en el store de autenticación
   // Esto ya lo hace imageStore.updateProfilePhotoFile, pero lo confirmamos aquí
   if (authStore.user) {
-    authStore.user.profile_image_url = imageUrl;
+    authStore.user.profile_photo_url = imageUrl;
   }
   emit('upload-success', imageUrl);
   closeModal();
@@ -73,7 +73,7 @@ const handleError = (message: string) => {
 watch(() => props.visible, (newVal) => {
   if (newVal) {
     // Cuando el modal se abre, asegúrate de que la URL actual sea la del usuario
-    currentImageUrl.value = authStore.user?.profile_image_url || null;
+    currentImageUrl.value = authStore.user?.profile_photo_url || null;
   }
 });
 </script>

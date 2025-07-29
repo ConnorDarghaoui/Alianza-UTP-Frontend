@@ -23,13 +23,13 @@ const authStore = useAuthStore();
 const userName = computed((): string => {
   const user = authStore.user;
   if (!user) return 'Usuario';
-  return user.firstName || user.username || 'Usuario';
+  return user.name || user.username || 'Usuario';
 });
 
 // Saludo dinámico basado en el género del usuario
 const welcomeMessage = computed((): string => {
   const user = authStore.user;
-  const name = user?.firstName || user?.username || 'Usuario';
+  const name = user?.name || user?.username || 'Usuario';
   
   // Lógica de género: 'Masculino' = masculino, 'Femenino' = femenino, por defecto neutral
   if (user?.gender === 'Masculino') {
@@ -49,7 +49,7 @@ const welcomeMessage = computed((): string => {
  * @returns {boolean}
  */
 const userCanCreateContent = computed(() => {
-  const userRoles = authStore.user?.roles || [];
+  const userRoles = authStore.user?.role || [];
   // Ajusta los roles según tu backend (ej. 'ADMIN', 'LEADER')
   return userRoles.includes('ADMIN') || userRoles.includes('LEADER');
 });
@@ -62,7 +62,7 @@ const userCanCreateContent = computed(() => {
       <div class="flex items-center gap-4">
         <!-- Foto de perfil del usuario -->
         <ProfilePictureUpload 
-          :current-image-url="authStore.user?.profile_image_url"
+          :current-image-url="authStore.user?.profile_photo_url"
           size="medium"
           :show-upload-button="false"
         />

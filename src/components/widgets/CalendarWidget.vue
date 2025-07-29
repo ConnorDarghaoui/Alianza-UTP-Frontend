@@ -60,7 +60,7 @@ const getActivitiesForDay = (day: Date) => {
 
 // Función para obtener el icono basado en el tipo de actividad
 const getActivityIcon = (activity: Activity) => {
-  const type = activity.activity_type.toLowerCase() || '';
+  const type = activity.status.toLowerCase() || '';
   
   if (type.includes('sport') || type.includes('deportiv')) return 'trophy';
   if (type.includes('cultural') || type.includes('art') || type.includes('workshop')) return 'palette';
@@ -73,7 +73,7 @@ const getActivityIcon = (activity: Activity) => {
 
 // Función para obtener el color basado en el tipo de actividad
 const getActivityColor = (activity: Activity) => {
-  const type = activity.activity_type.toLowerCase() || '';
+  const type = activity.status.toLowerCase() || '';
   
   if (type.includes('sport') || type.includes('deportiv')) return 'text-green-500';
   if (type.includes('cultural') || type.includes('art') || type.includes('workshop')) return 'text-purple-500';
@@ -170,7 +170,7 @@ const goToActivityDetails = (activityId: number) => {
           'cursor-pointer': getActivitiesForDay(day).length > 0
         }"
         style="min-height: 40px;"
-        @click="getActivitiesForDay(day).length > 0 && goToActivityDetails(getActivitiesForDay(day)[0].id)"
+        @click="getActivitiesForDay(day).length > 0 && goToActivityDetails(getActivitiesForDay(day)[0].activityId)"
       >
         <!-- Número del día -->
         <div 
@@ -187,7 +187,7 @@ const goToActivityDetails = (activityId: number) => {
           <div 
             v-if="getActivitiesForDay(day).length > 0"
             class="absolute bottom-1 right-1"
-            :title="getActivitiesForDay(day).map(a => a.activity_name).join(', ')"
+            :title="getActivitiesForDay(day).map(a => a.name).join(', ')"
           >
             <LucideIcon name="map-pin" :size="16" class="text-primary" />
           </div>

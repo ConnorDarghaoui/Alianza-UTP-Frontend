@@ -13,7 +13,7 @@ export const userDAO = {
     }
   },
 
-  async changePassword(passwords: any): Promise<ApiResponse<any>> {
+  async changePassword(passwords: { current_password: any; new_password: any; }): Promise<ApiResponse<any>> {
     try {
       const response = await apiClient.post(API_ENDPOINTS.USERS.CHANGE_PASSWORD, passwords);
       return [response.data, null];
@@ -46,7 +46,7 @@ export const userDAO = {
 
   async markNotificationsAsRead(ids: string[]): Promise<ApiResponse<any>> {
     try {
-      const response = await apiClient.put(API_ENDPOINTS.USERS.UPDATE_NOTIFICATIONS, { notification_ids: ids, read: true });
+      const response = await apiClient.put(API_ENDPOINTS.USERS.UPDATE_NOTIFICATIONS, { notification_ids: ids });
       return [response.data, null];
     } catch (err: any) {
       return [null, err.response?.data?.message || 'Failed to mark notifications as read'];

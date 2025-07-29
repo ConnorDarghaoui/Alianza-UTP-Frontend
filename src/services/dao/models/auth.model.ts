@@ -1,20 +1,20 @@
 // Define la estructura de los datos del usuario
 export interface UserProfile {
-  id: number;
-  firstName: string;
-  lastName: string;
+  userId: number;
+  name: string;
+  last_name: string;
   username: string;
   email: string;
   phone: string;
-  docType: string;
-  docNumber: string;
-  birthDate: string; // Formato 'YYYY-MM-DD'
-  gender: 'Masculino' | 'Femenino';
-  about_me?: string; // El '?' indica que es opcional
+  doc_type: string;
+  doc_number: string;
+  birth_date: string;
+  gender: string;
+  about_me?: string;
   career?: string;
-  profile_image_url?: string;
-  roles?: string[]; // Añadido roles como opcional
-  notifications?: any[]; // Añadido notifications como opcional
+  profile_photo_url?: string;
+  role: string[];
+  unread_notifications: number;
 }
 
 // Define la estructura de la respuesta de la API al hacer login
@@ -22,7 +22,7 @@ export interface LoginResponse {
   login_success: boolean;
   message: string;
   token: string;
-  user: UserProfile; // La respuesta incluye el perfil del usuario
+  user: UserProfile;
 }
 
 export interface AuthLoginRequestDTO {

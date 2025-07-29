@@ -6,27 +6,27 @@ export interface ClubContact {
 }
 
 export interface Club {
-  id: number; // o string, dependiendo de tu API
-  name: string;
-  description: string;
-  status: string; // 'Activo', 'Inactivo', etc.
-  category: string;
+  groupId: number;
+  group_name: string;
+  group_description: string;
+  status: string;
+  group_category: string;
   logo_url?: string;
-  member_count: number;
-  contact_info: ClubContact[];
+  createdAt: string;
 }
 
 export interface ClubMember {
-  user_id: number;
-  username: string;
-  full_name: string;
-  role: 'Admin' | 'Member'; // Roles que maneje tu sistema
-  join_date: string;
+  userId: number;
+  name: string;
+  email: string;
+  role: string;
+  joinedAt: string;
 }
 
 export interface JoinRequest {
-  request_id: number;
-  user_id: number;
-  username: string;
-  request_date: string;
+  requestId: number;
+  userId: number;
+  userName: string;
+  requestedAt: string;
+  message: string;
 }

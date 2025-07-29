@@ -27,12 +27,12 @@
           <tr v-else-if="filteredActivities.length === 0" class="text-center">
             <td colspan="3" class="px-6 py-4 whitespace-nowrap text-gray-500">No hay actividades disponibles</td>
           </tr>
-          <tr v-else v-for="activity in filteredActivities" :key="activity.id">
-            <td class="px-6 py-4 whitespace-nowrap">{{ activity.activity_name }}</td>
+          <tr v-else v-for="activity in filteredActivities" :key="activity.activityId">
+            <td class="px-6 py-4 whitespace-nowrap">{{ activity.name }}</td>
             <td class="px-6 py-4 whitespace-nowrap">
               {{ activity.start_date ? new Date(activity.start_date).toLocaleDateString() : 'Sin fecha' }}
             </td>
-            <td class="px-6 py-4 whitespace-nowrap">{{ activity.activity_type || 'N/A' }}</td>
+            <td class="px-6 py-4 whitespace-nowrap">{{ activity.status || 'N/A' }}</td>
           </tr>
         </tbody>
       </table>
@@ -66,7 +66,7 @@ const filteredActivities = computed(() => {
     const start = startDate.value ? new Date(startDate.value) : null;
     const end = endDate.value ? new Date(endDate.value) : null;
 
-    const matchesSearch = activity.activity_name.toLowerCase().includes(searchQuery.value.toLowerCase());
+    const matchesSearch = activity.name.toLowerCase().includes(searchQuery.value.toLowerCase());
     const matchesDate = !activityDate || 
       ((!start || activityDate >= start) && (!end || activityDate <= end));
 
