@@ -1,0 +1,593 @@
+/**
+ * @file src/style.css
+ * @description Archivo principal de estilos de la aplicación, utiliza Tailwind CSS v3.
+ * Este archivo centraliza las importaciones de Tailwind y define clases personalizadas
+ * para componentes de la interfaz de usuario (UI) y efectos comunes,
+ * asegurando un diseño responsivo y consistente en toda la aplicación.
+ */
+
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+/* --- SECCIÓN DE CLASES DE COMPONENTES PERSONALIZADAS --- */
+
+/* @docstring
+ * Estilos para los enlaces de navegación principales en la barra de navegación de escritorio.
+ * @effects Aplica color de texto, efectos hover de fondo y texto, padding, bordes redondeados,
+ * tamaño de fuente y transición de color para una navegación interactiva.
+ */
+.nav-link {
+  color: rgb(209 213 219);
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.375rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 500;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+.nav-link:hover {
+  background-color: #001A4D;
+  color: rgb(255 255 255);
+}
+
+/* @docstring
+ * Estilos para el enlace de navegación activo en la barra de navegación de escritorio.
+ * @effects Aplica un fondo oscuro y color de texto blanco para indicar la página actual.
+ */
+.nav-link-active {
+  background-color: #001A4D;
+  color: rgb(255 255 255);
+}
+
+/* @docstring
+ * Estilos para los elementos del menú de usuario desplegable.
+ * @effects Define el padding, tamaño de fuente, color de texto y un efecto hover de fondo.
+ */
+.user-menu-item {
+  display: block;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: #1a202c;
+}
+
+.user-menu-item:hover {
+  background-color: rgb(243 244 246);
+}
+
+/* @docstring
+ * Estilos para los enlaces de navegación en la barra de navegación móvil.
+ * @effects Aplica color de texto, efectos hover de fondo y texto, padding, bordes redondeados,
+ * tamaño de fuente y transición de color, optimizado para la navegación móvil.
+ */
+.mobile-nav-link {
+  color: rgb(209 213 219);
+  display: block;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.375rem;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  font-weight: 500;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+.mobile-nav-link:hover {
+  background-color: #001A4D;
+  color: rgb(255 255 255);
+}
+
+/* @docstring
+ * Estilos para el enlace de navegación activo en la barra de navegación móvil.
+ * @effects Aplica un fondo oscuro y color de texto blanco para indicar la página actual en móviles.
+ */
+.mobile-nav-link-active {
+  background-color: #001A4D;
+  color: rgb(255 255 255);
+}
+
+/* @docstring
+ * Estilos para los elementos del menú de usuario desplegable en móviles.
+ * @effects Define el padding, tamaño de fuente, color de texto y un efecto hover de fondo,
+ * adaptado para pantallas pequeñas.
+ */
+.user-menu-item-mobile {
+  display: block;
+  border-radius: 0.375rem;
+  padding: 0.5rem 0.75rem;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  font-weight: 500;
+  color: rgb(209 213 219);
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+.user-menu-item-mobile:hover {
+  background-color: #001A4D;
+  color: rgb(255 255 255);
+}
+
+/* @docstring
+ * Estilo para inputs de texto genéricos con efecto de enfoque.
+ * Esta clase se aplica a campos de entrada de texto, selectores y otras formas
+ * interactivas para proporcionar un aspecto y comportamiento coherentes.
+ * @effects Aplica estilos de bloque, ancho completo, bordes, sombras, padding uniforme
+ * y un efecto visual al enfocar el campo utilizando el color `accent` de la paleta.
+ */
+.input-focus-effect {
+  display: block;
+  width: 100%;
+  border: 1px solid rgb(209 213 219);
+  border-radius: 0.375rem;
+  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  padding: 0.625rem 0.75rem;
+  transition-property: box-shadow;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+.input-focus-effect:focus {
+  border-color: #E4B95B;
+  --tw-ring-color: rgb(228 185 91 / 0.5);
+  --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+  --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(1px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+  box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
+}
+
+/* @docstring
+ * Clase para elementos de estado/status con diferentes variantes de color.
+ * Usado para mostrar estados como "Activo", "Inactivo", "Pendiente", etc.
+ * @effects Aplica padding pequeño, texto pequeño, esquinas redondeadas y peso de fuente semibold.
+ */
+.status-pill {
+  padding: 0.125rem 0.5rem;
+  font-size: 0.75rem;
+  line-height: 1.25rem;
+  font-weight: 600;
+  border-radius: 9999px;
+  display: inline-flex;
+}
+
+/* Variantes de color para status pills */
+.status-pill-success {
+  background-color: rgb(220 252 231);
+  color: rgb(22 101 52);
+}
+
+.status-pill-danger {
+  background-color: rgb(254 226 226);
+  color: rgb(153 27 27);
+}
+
+.status-pill-warning {
+  background-color: rgb(254 240 138);
+  color: rgb(146 64 14);
+}
+
+.status-pill-info {
+  background-color: rgb(219 234 254);
+  color: rgb(30 64 175);
+}
+
+.status-pill-default {
+  background-color: rgb(243 244 246);
+  color: rgb(55 65 81);
+}
+
+/* @docstring
+ * Clase para botones de acción rápida con efecto de elevación.
+ * @effects Aplica flexbox, gap, padding, bordes redondeados, peso de fuente semibold,
+ * borde doble y efectos hover con transformación y sombra.
+ */
+.btn-quick-action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  border: 2px solid transparent;
+  transition-property: transform, box-shadow;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 200ms;
+}
+
+.btn-quick-action:hover {
+  transform: translateY(-0.125rem);
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -2px rgb(0 0 0 / 0.05);
+}
+
+/* @docstring
+ * Clase para fondos de secciones modales o paneles.
+ * @effects Aplica un fondo gris muy claro, útil para secciones de pie de modales.
+ */
+.bg-section {
+  background-color: rgb(249 250 251);
+}
+
+/* --- SECCIÓN DE UTILIDADES GLOBALES (para elementos HTML base o ajustes generales) --- */
+
+/* @docstring
+ * Define los estilos base para el cuerpo del documento.
+ * @effects Establece un color de fondo gris claro y un color de texto oscuro por defecto.
+ */
+body {
+  background-color: rgb(249 250 251);
+  color: rgb(17 24 39);
+}
+
+/* @docstring
+ * Clase para fondos suaves o ligeramente coloreados.
+ * @effects Aplica un color de fondo gris muy claro.
+ */
+.bg-soft {
+  background-color: rgb(243 244 246);
+}
+
+/* @docstring
+ * Clase para fondos de componentes tipo tarjeta.
+ * @effects Aplica un color de fondo blanco.
+ */
+.bg-card {
+  background-color: rgb(255 255 255);
+}
+
+/* @docstring
+ * Clase para texto oscuro principal.
+ * @effects Aplica un color de texto gris oscuro.
+ */
+.text-darkText {
+  color: rgb(31 41 55);
+}
+
+/* --- SECCIÓN DE ANIMACIONES Y TRANSICIONES --- */
+
+/* @docstring
+ * Define los estilos para la transición de entrada y salida de elementos con un efecto de deslizamiento y desvanecimiento.
+ * Esta transición es útil para modales, paneles laterales o notificaciones.
+ * @effects Aplica una transición suave para la opacidad y la transformación vertical.
+ */
+.slide-fade-enter-active, 
+.slide-fade-leave-active {
+  transition: all 0.3s ease-out;
+}
+
+/* @docstring
+ * Define el estado inicial de entrada y el estado final de salida para la transición `slide-fade`.
+ * @effects Inicialmente, el elemento está ligeramente desplazado hacia abajo y es completamente transparente.
+ * Finaliza su salida con el mismo estado.
+ */
+.slide-fade-enter-from, 
+.slide-fade-leave-to {
+  transform: translateY(20px);
+  opacity: 0;
+}
+
+/* @docstring
+ * Define el estado final de entrada para la transición `slide-fade`.
+ * @effects El elemento se desliza a su posición final y se vuelve completamente opaco.
+ */
+.slide-fade-enter-to {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* @docstring
+ * Define el estado inicial de salida para la transición `slide-fade`.
+ * @effects El elemento comienza su salida desde su posición normal y completamente opaco.
+ */
+.slide-fade-leave-from {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* @docstring
+ * Define la animación de rotación para un spinner de carga.
+ * @effects Gira el elemento 360 grados continuamente.
+ */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* @docstring
+ * Aplica la animación `spin` a un elemento.
+ * @effects Hace que el elemento gire indefinidamente.
+ */
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+/* --- SECCIÓN DE VARIABLES CSS (para colores y otros valores reutilizables) --- */
+
+/* @docstring
+ * Define las variables CSS personalizadas para la paleta de colores de la aplicación.
+ * Estas variables se utilizan en todo el CSS para mantener la consistencia de la marca.
+ */
+:root {
+  --color-primary: #00205B; /* Azul oscuro */
+  --color-primary-dark: #001A4D; /* Azul oscuro más oscuro para hover/active */
+  --color-accent: #E4B95B; /* Dorado/Amarillo */
+  --color-accent-dark: #D4A94B; /* Dorado/Amarillo más oscuro */
+  --color-text-dark: #1A202C; /* Texto oscuro */
+  --color-text-light: #F7FAFC; /* Texto claro */
+  --color-background-light: #F7FAFC; /* Fondo claro */
+  --color-background-dark: #1A202C; /* Fondo oscuro */
+  --color-card-background: #FFFFFF; /* Fondo de tarjetas */
+  --color-border: #E2E8F0; /* Color de borde */
+  --color-success: #48BB78; /* Verde para éxito */
+  --color-error: #FC8181; /* Rojo para error */
+  --color-warning: #F6E05E; /* Amarillo para advertencia */
+  --color-info: #63B3ED; /* Azul para información */
+}
+
+/* @docstring
+ * Estilos para el scrollbar en navegadores basados en WebKit (Chrome, Safari).
+ * @effects Define el ancho del scrollbar y el color del pulgar y la pista.
+ */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Estilos para ImageUpload.vue */
+.image-upload-component {
+  width: 100%;
+  max-width: 400px;
+}
+
+.upload-area {
+  border: 2px dashed #d1d5db;
+  border-radius: 12px;
+  padding: 2rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background-color: #f9fafb;
+  position: relative;
+  min-height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.upload-area:hover {
+  border-color: #3b82f6;
+  background-color: #eff6ff;
+}
+
+.upload-area.drag-over {
+  border-color: #3b82f6;
+  background-color: #dbeafe;
+  transform: scale(1.02);
+}
+
+.upload-area.has-error {
+  border-color: #ef4444;
+  background-color: #fef2f2;
+}
+
+.upload-area.uploading {
+  cursor: not-allowed;
+}
+
+.hidden-input {
+  display: none;
+}
+
+.upload-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.upload-icon {
+  color: #6b7280;
+  margin-bottom: 0.5rem;
+}
+
+.upload-text .primary-text {
+  color: #3b82f6;
+  font-weight: 600;
+}
+
+.upload-subtitle {
+  color: #6b7280;
+  font-size: 0.875rem;
+  margin: 0;
+}
+
+.upload-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid #e5e7eb;
+  border-top: 3px solid #3b82f6;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.loading-text {
+  color: #374151;
+  font-weight: 500;
+  margin: 0;
+}
+
+.progress-bar {
+  width: 200px;
+  height: 8px;
+  background-color: #e5e7eb;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background-color: #3b82f6;
+  transition: width 0.3s ease;
+}
+
+.progress-text {
+  color: #6b7280;
+  font-size: 0.875rem;
+}
+
+.image-preview {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.preview-image {
+  max-width: 100%;
+  max-height: 200px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.preview-overlay {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+}
+
+.remove-btn {
+  background-color: rgba(239, 68, 68, 0.9);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.remove-btn:hover {
+  background-color: #dc2626;
+}
+
+.file-name {
+  color: #374151;
+  font-size: 0.875rem;
+  margin: 0;
+  word-break: break-all;
+}
+
+.error-message {
+  color: #ef4444;
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+  text-align: center;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.upload-btn {
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.upload-btn:hover:not(:disabled) {
+  background-color: #2563eb;
+}
+
+.upload-btn:disabled {
+  background-color: #9ca3af;
+  cursor: not-allowed;
+}
+
+.cancel-btn {
+  background-color: #6b7280;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.cancel-btn:hover {
+  background-color: #4b5563;
+}
+
+/* Estilos para CalendarWidget.vue */
+.calendar-widget-container .fc {
+  font-family: inherit;
+}
+.calendar-widget-container .fc .fc-toolbar-title {
+  font-size: 1.125rem; /* text-lg */
+  font-weight: 700;
+  color: #1a202c; /* darkText */
+}
+.calendar-widget-container .fc .fc-button {
+  background-color: transparent !important;
+  border: none !important;
+  color: #00205B !important; /* primary */
+  box-shadow: none !important;
+  padding: 0.5rem;
+}
+.calendar-widget-container .fc .fc-daygrid-day.fc-day-today {
+  background-color: rgba(228, 185, 91, 0.15); /* accent con 15% de opacidad */
+}
+.calendar-widget-container .fc .fc-daygrid-day-number {
+  padding: 0.5em;
+  font-size: 0.8em;
+}
+/* Estilo para el enlace "+X más eventos" */
+.calendar-widget-container .fc-daygrid-more-link {
+  font-size: 0.75rem;
+  font-weight: 600;
+}
