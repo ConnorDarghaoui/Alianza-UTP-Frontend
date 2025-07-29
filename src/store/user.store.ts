@@ -88,7 +88,7 @@ export const useUserStore = defineStore('user', {
           // Update user in auth.store for consistency
           const authStore = useAuthStore();
           if (authStore.user) {
-            authStore.user = { ...authStore.user, ...data }; // Assuming data contains updated user fields
+            authStore.user = { ...authStore.user, ...data }; 
           }
           return data; // Return updated data for component to use
         } else {
@@ -182,6 +182,5 @@ export const useUserStore = defineStore('user', {
       this.showProfileDropdown = false;
     }
 
-    // Other actions like changePassword, updateProfilePhoto, leaveActivity can be added here following the same pattern
   },
 });

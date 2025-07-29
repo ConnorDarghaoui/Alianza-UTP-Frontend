@@ -22,13 +22,13 @@ export const useAuthStore = defineStore('auth', {
       try {
         const [data, error] = await authDAO.login(credentials);
         if (data) {
-          this.user = data.user; // Assuming API returns { user, token }
+          this.user = data.user;
           this.token = data.token;
           this.isAuthenticated = true;
           localStorage.setItem('authToken', data.token);
         } else {
           this.error = error;
-          this.logout(); // Ensure state is clean on failed login
+          this.logout(); 
         }
       } catch (err: any) {
         this.error = err.message || 'An unexpected error occurred during login';

@@ -23,20 +23,22 @@ export const API_ENDPOINTS = {
    * Endpoints del Perfil de Usuario Autenticado
    */
   USERS: {
-    UPDATE_PROFILE: '/api/users/me',
-    UPDATE_PHOTO: '/api/users/me/photo',
-    CHANGE_PASSWORD: '/api/users/me/change-password',
-    GET_MY_ACTIVITIES: '/api/users/me/activities',
-    GET_MY_CLUBS: '/api/users/me/groups',
-    GET_NOTIFICATIONS: '/api/users/me/notifications',
-    UPDATE_NOTIFICATIONS: '/api/users/me/notifications',
-    GET_UPCOMING_EVENTS: '/api/users/me/events',
-    JOIN_ACTIVITY: (activityId: number | string) => `/api/users/me/activity/${activityId}`,
-    LEAVE_ACTIVITY: (activityId: number | string) => `/api/users/me/activity/${activityId}`,
+    UPDATE_PROFILE: '/api/users/me', // PUT
+    UPDATE_PHOTO: '/api/users/me/photo', // PUT (multipart)
+    CHANGE_PASSWORD: '/api/users/me/change-password', // POST
+    GET_MY_ACTIVITIES: '/api/users/me/activities', // GET
+    GET_MY_CLUBS: '/api/users/me/groups', // GET
+    GET_NOTIFICATIONS: '/api/users/me/notifications', // GET
+    UPDATE_NOTIFICATIONS: '/api/users/me/notifications', // PUT
+    GET_UPCOMING_EVENTS: '/api/users/me/events', // GET (Corregido de '/api/user/me/events')
+    JOIN_ACTIVITY: (activityId: number | string) => `/api/users/me/activity/${activityId}`, // POST (Corregido de '/api/user/me/...')
+    LEAVE_ACTIVITY: (activityId: number | string) => `/api/users/me/activity/${activityId}`, // PUT (Corregido de '/api/user/me/...')
   },
 
   /**
    * Endpoints de Subida de Imágenes
+   * Nota: Este endpoint no se encuentra en la colección Postman proporcionada.
+   * Si no se usa o no existe en el backend, debería eliminarse.
    */
   IMAGES: {
     UPLOAD: '/api/images/upload',
@@ -46,20 +48,20 @@ export const API_ENDPOINTS = {
    * Endpoints Públicos de Actividades
    */
   ACTIVITIES: {
-    GET_ALL: '/api/activities',
-    GET_BY_ID: (id: number | string) => `/api/activities/${id}`,
+    GET_ALL: '/api/activities', // GET
+    GET_BY_ID: (id: number | string) => `/api/activities/${id}`, // GET
   },
 
   /**
    * Endpoints Públicos de Clubes/Grupos
    */
   CLUBS: {
-    GET_ALL: '/api/groups',
-    CREATE: '/api/groups',
-    GET_BY_ID: (id: number | string) => `/api/groups/${id}`,
-    GET_ACTIVITIES: (id: number | string) => `/api/groups/${id}/activities`,
-    REQUEST_TO_JOIN: (id: number | string) => `/api/groups/${id}/join`,
-    UPDATE_PHOTO: (id: number | string) => `/api/groups/${id}/photo`,
+    GET_ALL: '/api/groups', // GET
+    CREATE: '/api/groups', // POST
+    GET_BY_ID: (id: number | string) => `/api/groups/${id}`, // GET
+    GET_ACTIVITIES: (id: number | string) => `/api/groups/${id}/activities`, // GET
+    REQUEST_TO_JOIN: (id: number | string) => `/api/groups/${id}/join`, // POST
+    UPDATE_PHOTO: (id: number | string) => `/api/groups/${id}/photo`, // PUT (multipart)
   },
 
   /**
@@ -67,22 +69,22 @@ export const API_ENDPOINTS = {
    */
   ADMIN: {
     CLUBS: {
-      GET_ACTIVITIES: (clubId: number | string) => `/api/admin/clubs/${clubId}/activities`,
-      UPDATE_SETTINGS: (clubId: number | string) => `/api/admin/clubs/${clubId}/settings`,
-      DELETE: (clubId: number | string) => `/api/admin/clubs/${clubId}/delete`,
-      REACTIVATE: (clubId: number | string) => `/api/admin/clubs/${clubId}/reactivate`,
-      GET_MEMBERS_STATS: (clubId: number | string) => `/api/admin/clubs/${clubId}/members/stats`,
-      GET_MEMBERS_LIST: (clubId: number | string) => `/api/admin/clubs/${clubId}/members/list`,
-      EXPORT_MEMBERS: (clubId: number | string) => `/api/admin/clubs/${clubId}/members/export`,
-      GET_JOIN_REQUESTS: (clubId: number | string) => `/api/admin/clubs/${clubId}/join-requests`,
-      PROCESS_JOIN_REQUEST: (clubId: number | string, requestId: number | string) => `/api/admin/clubs/${clubId}/join-requests/${requestId}`,
+      GET_ACTIVITIES: (clubId: number | string) => `/api/admin/clubs/${clubId}/activities`, // GET
+      UPDATE_SETTINGS: (clubId: number | string) => `/api/admin/clubs/${clubId}/settings`, // PUT
+      DELETE: (clubId: number | string) => `/api/admin/clubs/${clubId}/delete`, // PUT
+      REACTIVATE: (clubId: number | string) => `/api/admin/clubs/${clubId}/reactivate`, // PUT
+      GET_MEMBERS_STATS: (clubId: number | string) => `/api/admin/clubs/${clubId}/members/stats`, // GET
+      GET_MEMBERS_LIST: (clubId: number | string) => `/api/admin/clubs/${clubId}/members/list`, // GET
+      EXPORT_MEMBERS: (clubId: number | string) => `/api/admin/clubs/${clubId}/members/export`, // GET
+      GET_JOIN_REQUESTS: (clubId: number | string) => `/api/admin/clubs/${clubId}/join-requests`, // GET
+      PROCESS_JOIN_REQUEST: (clubId: number | string, requestId: number | string) => `/api/admin/clubs/${clubId}/join-requests/${requestId}`, // PUT
     },
     ACTIVITIES: {
-      CREATE: (clubId: number | string) => `/api/admin/clubs/${clubId}/activities`,
-      UPDATE: (id: number | string) => `/api/admin/activities/${id}`,
-      DELETE: (id: number | string) => `/api/admin/activities/${id}`,
-      GET_HEATMAP: (clubId: number | string) => `/api/admin/clubs/${clubId}/activities/weekly-heatmap`,
-      GET_ENROLLMENTS: (clubId: number | string) => `/api/admin/clubs/${clubId}/activities/enrollments`,
+      CREATE: (clubId: number | string) => `/api/admin/clubs/${clubId}/activities`, // POST
+      UPDATE: (id: number | string) => `/api/admin/activities/${id}`, // PUT
+      DELETE: (id: number | string) => `/api/admin/activities/${id}`, // DELETE
+      GET_HEATMAP: (clubId: number | string) => `/api/admin/clubs/${clubId}/activities/weekly-heatmap`, // GET
+      GET_ENROLLMENTS: (clubId: number | string) => `/api/admin/clubs/${clubId}/activities/enrollments`, // GET
     },
   },
 } as const;
