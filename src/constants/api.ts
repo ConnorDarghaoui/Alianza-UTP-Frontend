@@ -26,7 +26,7 @@ export const API_ENDPOINTS = {
     UPDATE_PROFILE: '/api/users/me', // PUT
     UPDATE_PHOTO: '/api/users/me/photo', // PUT (multipart)
     CHANGE_PASSWORD: '/api/users/me/change-password', // POST
-    GET_MY_ACTIVITIES: '/api/users/me/activities', // GET
+    GET_MY_ACTIVITIES: '/api/user/me/activities', // GET
     GET_MY_CLUBS: '/api/users/me/groups', // GET
     GET_NOTIFICATIONS: '/api/users/me/notifications', // GET
     UPDATE_NOTIFICATIONS: '/api/users/me/notifications', // PUT
